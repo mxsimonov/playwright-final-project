@@ -13,6 +13,7 @@ jobs:
       USER_EMAIL: ${{secrets.USER_EMAIL}}
       USER_PASSWORD: ${{secrets.USER_PASSWORD}}
       USER_NAME: ${{vars.USER_NAME}}
+      API_URL: ${{vars.API_URL}}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

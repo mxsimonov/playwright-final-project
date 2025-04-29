@@ -1,12 +1,9 @@
-import { test, expect } from "@playwright/test";
-import { HomePage } from "../pages/home.page";
+import { expect } from "@playwright/test";
 import { CategoryOptions, POWER_TOOLS } from "../types/categories";
+import { test } from '../fixtures/fixtures'
 
 Object.values(CategoryOptions).forEach((option) => {
-    test(`Verify user can filter products by ${option} category`, async ({ page }) => {
-        const homePage = new HomePage(page);
-
-        await homePage.goto();
+    test(`Verify user can filter products by ${option} category`, async ({ homePage }) => {
         await homePage.productsFilter.selectFilterOption(option);
 
         const actualFilteredProducts = await homePage.getAllProductsNames();
@@ -16,11 +13,9 @@ Object.values(CategoryOptions).forEach((option) => {
     });
 })
 
-test('Verify user can filter products by Sander category', async ({ page }) => {
-    const homePage = new HomePage(page);
+test('Verify user can filter products by Sander category', async ({ homePage }) => {
     const option = POWER_TOOLS.SANDER;
 
-    await homePage.goto();
     await homePage.productsFilter.selectFilterOption(option);
 
     const actualFilteredProducts = await homePage.getAllProductsNames();

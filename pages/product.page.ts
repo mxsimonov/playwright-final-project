@@ -9,4 +9,9 @@ export class ProductPage extends BasePage {
     cartAlertLocator = this.page.getByRole('alert');
 
     header = new HeaderFragment(this.page);
+
+    async addProductToCart() {
+        await this.addToCartButton.click();
+        await this.cartAlertLocator.waitFor({ state: "visible" });
+    }
 }

@@ -29,6 +29,7 @@ npx playwright install chromium --with-deps
 ```bash
 # .env-example
 BASE_URL='https://practicesoftwaretesting.com'
+API_URL='https://api.practicesoftwaretesting.com'
 USER_EMAIL='your_email_value'
 USER_PASSWORD='your_password_value'
 USER_NAME='your_username_value'
@@ -41,6 +42,7 @@ BASE_URL: ${{vars.BASE_URL}}
 USER_EMAIL: ${{secrets.USER_EMAIL}}
 USER_PASSWORD: ${{secrets.USER_PASSWORD}}
 USER_NAME: ${{vars.USER_NAME}}
+API_URL: ${{vars.API_URL}}
 ```
 
 #### 6. Run tests

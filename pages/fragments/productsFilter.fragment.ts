@@ -1,3 +1,4 @@
+import { CategoryOptions, CategorySubOptions } from "../../types/categories";
 import { BasePage } from "../base.page";
 
 export type SortOptions = 'Name (A - Z)' | 'Name (Z - A)' | 'Price (High - Low)' | 'Price (Low - High)';
@@ -14,7 +15,7 @@ export class ProductsFilter extends BasePage {
         );
     }
 
-    async selectFilterOption(filterOption) {
+    async selectFilterOption(filterOption: CategoryOptions | CategorySubOptions) {
         await this.filterSelect.getByText(filterOption).click();
         await this.page.waitForResponse(response =>
             response.url().includes(`${process.env.API_URL}/products`) && response.url().includes('by_category') && response.status() === 200

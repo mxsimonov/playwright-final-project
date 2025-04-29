@@ -28,3 +28,5 @@ export enum OTHER {
     SAFETY_GEAR = 'Safety Gear',
     FASTENERS = 'Fasteners',
 }
+
+export type CategorySubOptions = HAND_TOOLS | POWER_TOOLS | OTHER;

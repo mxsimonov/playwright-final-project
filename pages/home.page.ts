@@ -1,6 +1,6 @@
 import { BasePage } from "./base.page";
 import { ProductsFilter, SortOptions } from "./fragments/productsFilter.fragment";
-import { HAND_TOOLS, POWER_TOOLS } from '../types/categories'
+import { CategoryOptions, CategorySubOptions, HAND_TOOLS, POWER_TOOLS } from '../types/categories'
 
 export class HomePage extends BasePage {
     productsFilter = new ProductsFilter(this.page);
@@ -21,6 +21,10 @@ export class HomePage extends BasePage {
     async getAllProductsPrices() {
         const productsPrices = await this.page.getByTestId('product-price').allTextContents();
         return productsPrices;
+    }
+
+    async getAllProductsByDisplayType(type: string) {
+        return type.includes('Name') ? this.getAllProductsNames() : this.getAllProductsPrices();
     }
 
     async getSortedProductsByCategory(sortOption: SortOptions) {
@@ -44,19 +48,19 @@ export class HomePage extends BasePage {
         }
     }
 
-    async getFilteredProductsByCategory(categoryOption) {
+    async getFilteredProductsByCategory(categoryOption: CategoryOptions | CategorySubOptions) {
         const filteredProducts = await this.getAllProductsNames();
 
         switch (categoryOption) {
-            case 'Hand Tools': {
+            case CategoryOptions.HAND_TOOLS: {
                 filteredProducts.filter(product => !Object.values(HAND_TOOLS).includes(product as HAND_TOOLS));
                 return filteredProducts;
             }
-            case 'Power Tools': {
+            case CategoryOptions.POWER_TOOLS: {
                 filteredProducts.filter(product => !Object.values(POWER_TOOLS).includes(product as POWER_TOOLS));
                 return filteredProducts;
             }
-            case 'Other': {
+            case CategoryOptions.OTHER: {
                 filteredProducts.filter(product => !Object.values(POWER_TOOLS).includes(product as POWER_TOOLS));
                 return filteredProducts;
             }

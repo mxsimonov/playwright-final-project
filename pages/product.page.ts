@@ -1,4 +1,3 @@
-import { Locator, Page } from "@playwright/test";
 import { HeaderFragment } from "./fragments/header.fragment";
 import { BasePage } from "./base.page";
 

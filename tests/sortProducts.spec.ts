@@ -8,7 +8,7 @@ sortOptionsData.forEach((option) => {
 
         await homePage.goto();
         await homePage.productsFilter.selectSortOption(option);
-        const actualSortedProducts = option.includes('Name') ? await homePage.getAllProductsNames() : await homePage.getAllProductsPrices();
+        const actualSortedProducts = await homePage.getAllProductsByDisplayType(option);
         const expectedSortedProducts = await homePage.getSortedProductsByCategory(option);
 
         expect(expectedSortedProducts).toEqual(actualSortedProducts);

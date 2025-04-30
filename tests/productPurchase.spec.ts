@@ -2,11 +2,11 @@ import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 import { getCardExpireDate } from "../utils/cardDate";
 
-test('Verify user can buy product', async ({ loggedInPage, homePage, productPage, checkoutPage }) => {
+test('Verify user can buy product (loggedInPage fixture)', async ({ loggedInPage, homePage, productPage, checkoutPage }) => {
+    await loggedInPage.goto('/');
+
     const productName = (await homePage.getAllProductsNames())[0];
     const productPrice = (await homePage.getAllProductsPrices())[0];
-
-    await loggedInPage.goto('/');
 
     await homePage.openProductPage(productName);
     await productPage.addProductToCart();
@@ -31,4 +31,34 @@ test('Verify user can buy product', async ({ loggedInPage, homePage, productPage
     await checkoutPage.paymentCheckoutButton.click();
 
     await expect(checkoutPage.paymentStatusMessage).toHaveText('Payment was successful');
+});
+
+test('Verify user can buy product (loggedInApp fixture)', async ({ loggedInApp }) => {
+    await loggedInApp.homePage.goto();
+    const productName = (await loggedInApp.homePage.getAllProductsNames())[0];
+    const productPrice = (await loggedInApp.homePage.getAllProductsPrices())[0];
+
+    await loggedInApp.homePage.openProductPage(productName);
+    await loggedInApp.productPage.addProductToCart();
+    await loggedInApp.checkoutPage.goto();
+    await expect(loggedInApp.checkoutPage.cartProductName).toHaveText(productName)
+    await expect(loggedInApp.checkoutPage.cartProductTotalPrice).toHaveText(productPrice);
+
+    await loggedInApp.checkoutPage.proceedToCheckout();
+    await expect(loggedInApp.checkoutPage.loggedUserCheckoutButton).toBeVisible();
+    await loggedInApp.checkoutPage.loggedUserCheckoutButton.click();
+
+    await expect(loggedInApp.checkoutPage.countryName).toHaveValue('Austria');
+    await loggedInApp.checkoutPage.stateName.fill('Texas');
+    await loggedInApp.checkoutPage.postCode.fill('73301');
+    await loggedInApp.checkoutPage.billingAddressCheckoutButton.click();
+
+    await loggedInApp.checkoutPage.selectPaymentMethod('Credit Card');
+    await loggedInApp.checkoutPage.cardNumber.fill('1111-1111-1111-1111');
+    await loggedInApp.checkoutPage.cardExpirationDate.fill(getCardExpireDate());
+    await loggedInApp.checkoutPage.cardCvvNumber.fill('1234')
+    await loggedInApp.checkoutPage.cardHolderName.fill('Jimmy Neutron');
+    await loggedInApp.checkoutPage.paymentCheckoutButton.click();
+
+    await expect(loggedInApp.checkoutPage.paymentStatusMessage).toHaveText('Payment was successful');
 });

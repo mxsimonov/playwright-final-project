@@ -4,8 +4,11 @@ import { AccountPage } from "../pages/account.page";
 import { HomePage } from "../pages/home.page";
 import { ProductPage } from "../pages/product.page";
 import { CheckoutPage } from "../pages/checkout.page";
+import { App } from "../app/app";
 
 type Fixtures = {
+    app: App,
+    loggedInApp: App,
     loggedInPage: Page,
     accountPage: AccountPage,
     homePage: HomePage,
@@ -14,6 +17,14 @@ type Fixtures = {
 }
 
 export const test = base.extend<Fixtures>({
+    app: async ({ page }, use) => {
+        const app = new App(page);
+        await use(app);
+    },
+    loggedInApp: async ({ loggedInPage }, use) => {
+        const app = new App(loggedInPage);
+        await use(app);
+    },
     loggedInPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
 
@@ -44,13 +55,3 @@ export const test = base.extend<Fixtures>({
         await use(checkoutPage);
     }
 });
-
-
-// export const test = base.extend<{ loggedInPage: Page }>({
-//     loggedInPage: async ({ page }, use) => {
-//         const loginPage = new LoginPage(page);
-//         await loginPage.goto();
-//         await loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
-//         await use(page);
-//     }
-// });

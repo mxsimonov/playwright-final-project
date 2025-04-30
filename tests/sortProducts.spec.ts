@@ -4,10 +4,11 @@ import { test } from "../fixtures/fixtures";
 
 
 sortOptionsData.forEach((option) => {
-    test(`Verify user can perform sorting by ${option}`, async ({ homePage }) => {
-        await homePage.productsFilter.selectSortOption(option);
-        const actualSortedProducts = await homePage.getAllProductsByDisplayType(option);
-        const expectedSortedProducts = await homePage.getSortedProductsByCategory(option);
+    test(`Verify user can perform sorting by ${option}`, async ({ app }) => {
+        await app.homePage.goto();
+        await app.homePage.productsFilter.selectSortOption(option);
+        const actualSortedProducts = await app.homePage.getAllProductsByDisplayType(option);
+        const expectedSortedProducts = await app.homePage.getSortedProductsByCategory(option);
 
         expect(expectedSortedProducts).toEqual(actualSortedProducts);
     });

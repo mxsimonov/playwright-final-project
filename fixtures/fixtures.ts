@@ -27,6 +27,7 @@ export const test = base.extend<Fixtures>({
     },
     loggedInPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
+        const accountPage = new AccountPage(page);
 
         await loginPage.goto();
         await loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
@@ -34,6 +35,7 @@ export const test = base.extend<Fixtures>({
             response.url() === (`${process.env.API_URL}/users/login`) && response.status() === 200
             && response.request().method() === 'POST'
         );
+        await accountPage.pageTitle.waitFor();
 
         await use(page);
     },

@@ -1,15 +1,14 @@
-import { test, expect } from "@playwright/test";
-import { HomePage } from "../pages/home.page";
-import { sortOptionsData } from '../test-data/sortOptions'
+import { expect } from "@playwright/test";
+import { sortOptionsData } from '../test-data/sortOptions';
+import { test } from "../fixtures/fixtures";
+
 
 sortOptionsData.forEach((option) => {
-    test(`Verify user can perform sorting by ${option}`, async ({ page }) => {
-        const homePage = new HomePage(page);
-
-        await homePage.goto();
-        await homePage.productsFilter.selectSortOption(option);
-        const actualSortedProducts = await homePage.getAllProductsByDisplayType(option);
-        const expectedSortedProducts = await homePage.getSortedProductsByCategory(option);
+    test(`Verify user can perform sorting by ${option}`, async ({ app }) => {
+        await app.homePage.goto();
+        await app.homePage.productsFilter.selectSortOption(option);
+        const actualSortedProducts = await app.homePage.getAllProductsByDisplayType(option);
+        const expectedSortedProducts = await app.homePage.getSortedProductsByCategory(option);
 
         expect(expectedSortedProducts).toEqual(actualSortedProducts);
     });

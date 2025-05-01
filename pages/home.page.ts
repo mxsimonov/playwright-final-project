@@ -4,6 +4,9 @@ import { CategoryOptions, CategorySubOptions, HAND_TOOLS, POWER_TOOLS } from '..
 
 export class HomePage extends BasePage {
     productsFilter = new ProductsFilter(this.page);
+    productName = this.page.getByTestId('product-name');
+    productPrice = this.page.getByTestId('product-price');
+    productsContainer = this.page
 
     async openProductPage(title: string) {
         await this.page.getByRole('heading', { 'name': `${title}` }).click();
@@ -13,13 +16,15 @@ export class HomePage extends BasePage {
         await this.page.goto('/');
     }
 
-    async getAllProductsNames() {
-        const productsNames = await this.page.getByTestId('product-name').allTextContents();
+    async getAllProductsNames(): Promise<string[]> {
+        await this.productName.first().waitFor({ state: "visible" });
+        const productsNames = await this.productName.allTextContents();
         return productsNames;
     }
 
-    async getAllProductsPrices() {
-        const productsPrices = await this.page.getByTestId('product-price').allTextContents();
+    async getAllProductsPrices(): Promise<string[]> {
+        await this.productName.first().waitFor({ state: "visible" });
+        const productsPrices = await this.productPrice.allTextContents();
         return productsPrices;
     }
 

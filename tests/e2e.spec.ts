@@ -1,10 +1,12 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 
-test('Verify login with valid credentials', async ({ loggedInApp }) => {
-    await expect(loggedInApp.page).toHaveURL('/account');
-    await expect(loggedInApp.accountPage.pageTitle).toHaveText('My account');
-    await expect(loggedInApp.accountPage.header.navMenuLocator).toHaveText(process.env.USER_NAME!);
+test('Verify login with valid credentials', async ({ app }) => {
+    await app.loginPage.goto();
+    await app.loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
+    await expect(app.page).toHaveURL('/account');
+    await expect(app.accountPage.pageTitle).toHaveText('My account');
+    await expect(app.accountPage.header.navMenuLocator).toHaveText(process.env.USER_NAME!);
 });
 
 test('Verify user can view product details', async ({ app }) => {

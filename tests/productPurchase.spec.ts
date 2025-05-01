@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 import { getCardExpireDate } from "../utils/cardDate";
+import { testPaymentCardData } from "../test-data/testCardPaymentData";
 
 test('Verify user can buy product (loggedInPage fixture)', async ({ loggedInPage, homePage, productPage, checkoutPage }) => {
     await loggedInPage.goto('/');
@@ -54,10 +55,10 @@ test('Verify user can buy product (loggedInApp fixture)', async ({ loggedInApp }
     await loggedInApp.checkoutPage.billingAddressCheckoutButton.click();
 
     await loggedInApp.checkoutPage.selectPaymentMethod('Credit Card');
-    await loggedInApp.checkoutPage.cardNumber.fill('1111-1111-1111-1111');
-    await loggedInApp.checkoutPage.cardExpirationDate.fill(getCardExpireDate());
-    await loggedInApp.checkoutPage.cardCvvNumber.fill('1234')
-    await loggedInApp.checkoutPage.cardHolderName.fill('Jimmy Neutron');
+    await loggedInApp.checkoutPage.cardNumber.fill(testPaymentCardData.cardNumber);
+    await loggedInApp.checkoutPage.cardExpirationDate.fill(testPaymentCardData.expirationDate);
+    await loggedInApp.checkoutPage.cardCvvNumber.fill(testPaymentCardData.cvv);
+    await loggedInApp.checkoutPage.cardHolderName.fill(testPaymentCardData.holderName);
     await loggedInApp.checkoutPage.paymentCheckoutButton.click();
 
     await expect(loggedInApp.checkoutPage.paymentStatusMessage).toHaveText('Payment was successful');

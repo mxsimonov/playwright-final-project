@@ -1,7 +1,5 @@
-import path from 'path';
+import { authFile } from "../../baseConfig";
 import { test as setup } from "../../fixtures/fixtures";
-
-const authFile = path.join(__dirname, process.env.AUTH_FILE_ABSOLUTE as string);
 
 setup('Auth using default user', async ({ app, page }) => {
     await app.loginPage.goto();

@@ -30,3 +30,22 @@ export enum OTHER {
 }
 
 export type CategorySubOptions = HAND_TOOLS | POWER_TOOLS | OTHER;
+
+export interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    brand: { id: number; name: string };
+    category: { id: number; name: string; slug: string };
+    in_stock: boolean;
+    is_rental: boolean;
+    is_location_offer: boolean;
+    product_image: {
+        file_name: string;
+        title: string;
+        by_name: string;
+        source_name: string;
+        source_url: string;
+    };
+}

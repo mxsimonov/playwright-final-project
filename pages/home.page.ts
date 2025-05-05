@@ -1,6 +1,6 @@
 import { BasePage } from "./base.page";
 import { ProductsFilter, SortOptions } from "./fragments/productsFilter.fragment";
-import { CategoryOptions, CategorySubOptions, HAND_TOOLS, POWER_TOOLS } from '../types/categories'
+import { CategoryOptions, CategorySubOptions, HAND_TOOLS, POWER_TOOLS, Product } from '../types/categories'
 
 export class HomePage extends BasePage {
     productsFilter = new ProductsFilter(this.page);
@@ -74,5 +74,17 @@ export class HomePage extends BasePage {
                 return filteredProducts;
             }
         }
+    }
+
+    async mockProductApi(testData: Array<string>) {
+        await this.page.route(`${process.env.API_URL}/products*`, async route => {
+            const response = await route.fetch();
+            const json = await response.json() as { data: Product[] };
+
+            json.data.forEach((el: Product, i: number) => {
+                el.name = testData[i];
+            });
+            await route.fulfill({ response, json });
+        });
     }
 }

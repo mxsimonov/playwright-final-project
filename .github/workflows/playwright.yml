@@ -14,6 +14,7 @@ jobs:
       USER_PASSWORD: ${{secrets.USER_PASSWORD}}
       USER_NAME: ${{vars.USER_NAME}}
       API_URL: ${{vars.API_URL}}
+      AUTH_FILE: ${{vars.AUTH_FILE}}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

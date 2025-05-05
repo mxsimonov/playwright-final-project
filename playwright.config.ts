@@ -22,15 +22,15 @@ export default defineConfig({
         apiKey: process.env.TESTOMATIO_KEY,
       },
     ],
-    ['@reportportal/agent-js-playwright',
-      {
-        apiKey: process.env.REPORTPORTAL_KEY,
-        endpoint: 'http://localhost:8080/api/v1',
-        project: 'playwright-final-project',
-        launch: 'playwright-final-project',
-        description: 'playwright-final-project',
-      },
-    ]
+    // ['@reportportal/agent-js-playwright',
+    //   {
+    //     apiKey: process.env.REPORTPORTAL_KEY,
+    //     endpoint: 'http://localhost:8080/api/v1',
+    //     project: 'playwright-final-project',
+    //     launch: 'playwright-final-project',
+    //     description: 'playwright-final-project',
+    //   },
+    // ]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

@@ -4,10 +4,16 @@ import { test } from "../fixtures/fixtures";
 import { generateTestProducts } from "../utils/testProducts";
 
 test('Verify products list with mocked response', async ({ app }) => {
-    const testData = generateTestProducts(9);
-    await app.homePage.mockProductApi(testData);
-    await app.homePage.goto();
+    let testData: Array<string>;
 
-    const actualProductsNames = (await app.homePage.getAllProductsNames()).map(el => el.trim());
-    expect(testData).toEqual(actualProductsNames);
+    await test.step('Mock products API response', async () => {
+        testData = generateTestProducts(9);
+        await app.homePage.mockProductApi(testData);
+        await app.homePage.goto();
+    });
+
+    await test.step('Verify that mocked products are displayed correctly', async () => {
+        const actualProductsNames = (await app.homePage.getAllProductsNames()).map(el => el.trim());
+        expect(testData).toEqual(actualProductsNames);
+    });
 });

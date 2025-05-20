@@ -1,7 +1,9 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 
-test('Verify login with valid credentials', async ({ app }) => {
+test('Verify login with valid credentials', {
+    tag: '@smoke',
+}, async ({ app }) => {
     await test.step('Log in user', async () => {
         await app.loginPage.goto();
         await app.loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
@@ -14,7 +16,9 @@ test('Verify login with valid credentials', async ({ app }) => {
     });
 });
 
-test('Verify user can view product details', async ({ app }) => {
+test('Verify user can view product details', {
+    tag: '@smoke',
+}, async ({ app }) => {
     const productName = 'Combination Pliers';
 
     await test.step('Open product\'s page', async () => {
@@ -31,7 +35,9 @@ test('Verify user can view product details', async ({ app }) => {
     });
 });
 
-test('Verify user can add product to cart', async ({ app }) => {
+test('Verify user can add product to cart', {
+    tag: '@smoke',
+}, async ({ app }) => {
     const productName = 'Slip Joint Pliers';
 
     await test.step('Verify product\'s page', async () => {

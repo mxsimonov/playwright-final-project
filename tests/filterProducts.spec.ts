@@ -3,7 +3,9 @@ import { CategoryOptions, POWER_TOOLS } from "../types/categories";
 import { test } from '../fixtures/fixtures'
 
 Object.values(CategoryOptions).forEach((option) => {
-    test(`Verify user can filter products by ${option} category`, async ({ app }) => {
+    test(`Verify user can filter products by ${option} category`, {
+        tag: '@regression',
+    }, async ({ app }) => {
         await test.step('Apply product\'s filtering', async () => {
             await app.homePage.goto();
             await app.homePage.productsFilter.selectFilterOption(option);
@@ -18,7 +20,9 @@ Object.values(CategoryOptions).forEach((option) => {
     });
 })
 
-test('Verify user can filter products by Sander category', async ({ app }) => {
+test('Verify user can filter products by Sander category', {
+    tag: '@regression',
+}, async ({ app }) => {
     const option = POWER_TOOLS.SANDER;
 
     await test.step('Apply product\'s filtering', async () => {

@@ -4,7 +4,9 @@ import { test } from "../fixtures/fixtures";
 
 
 sortOptionsData.forEach((option) => {
-    test(`Verify user can perform sorting by ${option}`, async ({ app }) => {
+    test(`Verify user can perform sorting by ${option}`, {
+        tag: '@regression'
+    }, async ({ app }) => {
         await app.homePage.goto();
         await app.homePage.productsFilter.selectSortOption(option);
         const actualSortedProducts = await app.homePage.getAllProductsByDisplayType(option);

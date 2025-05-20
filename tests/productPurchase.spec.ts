@@ -2,7 +2,9 @@ import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 import { testPaymentCardData } from "../test-data/testCardPaymentData";
 
-test('Verify user can buy product', async ({ loggedInApp }) => {
+test('Verify user can buy product', {
+    tag: '@smoke'
+}, async ({ loggedInApp }) => {
     await loggedInApp.homePage.goto();
     const productName = (await loggedInApp.homePage.getAllProductsNames())[0];
     const productPrice = (await loggedInApp.homePage.getAllProductsPrices())[0];

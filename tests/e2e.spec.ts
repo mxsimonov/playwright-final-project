@@ -1,7 +1,9 @@
 import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 
-test('Verify login with valid credentials', async ({ app }) => {
+test('Verify login with valid credentials', {
+    tag: '@smoke'
+}, async ({ app }) => {
     await app.loginPage.goto();
     await app.loginPage.login(process.env.USER_EMAIL!, process.env.USER_PASSWORD!);
     await expect(app.page).toHaveURL('/account');
@@ -9,7 +11,9 @@ test('Verify login with valid credentials', async ({ app }) => {
     await expect(app.accountPage.header.navMenuLocator).toHaveText(process.env.USER_NAME!);
 });
 
-test('Verify user can view product details', async ({ app }) => {
+test('Verify user can view product details', {
+    tag: '@smoke'
+}, async ({ app }) => {
     const productName = 'Combination Pliers';
 
     await app.homePage.goto();
@@ -22,7 +26,9 @@ test('Verify user can view product details', async ({ app }) => {
     await expect(app.productPage.addToFavouritesButton).toBeVisible();
 });
 
-test('Verify user can add product to cart', async ({ app }) => {
+test('Verify user can add product to cart', {
+    tag: '@smoke'
+}, async ({ app }) => {
     const productName = 'Slip Joint Pliers';
 
     await app.homePage.goto();

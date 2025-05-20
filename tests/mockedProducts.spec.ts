@@ -3,7 +3,9 @@ import { expect } from "@playwright/test";
 import { test } from "../fixtures/fixtures";
 import { generateTestProducts } from "../utils/testProducts";
 
-test('Verify products list with mocked response', async ({ app }) => {
+test('Verify products list with mocked response', {
+    tag: '@smoke'
+}, async ({ app }) => {
     const testData = generateTestProducts(9);
     await app.homePage.mockProductApi(testData);
     await app.homePage.goto();

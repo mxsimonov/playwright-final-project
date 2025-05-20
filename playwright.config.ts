@@ -53,6 +53,18 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'], storageState: process.env.AUTH_FILE },
       dependencies: ['auth']
     },
+    {
+      name: 'smoke-chromium',
+      use: { ...devices['Desktop Chrome'], storageState: process.env.AUTH_FILE },
+      dependencies: ['auth'],
+      grep: /@smoke/
+    },
+    {
+      name: 'regression-chromium',
+      use: { ...devices['Desktop Chrome'], storageState: process.env.AUTH_FILE },
+      dependencies: ['auth'],
+      grep: /@regression/
+    },
 
     /* Test against mobile viewports. */
     // {
